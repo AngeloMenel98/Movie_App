@@ -1,16 +1,22 @@
 import {
+  BadRequestException,
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, LoginUserDTO } from './dto/create-user.dto';
 import { UserRepo } from './repository/user.repository';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
-  constructor(private userRepository: UserRepo) {}
+  constructor(
+    private userRepository: UserRepo,
+    private readonly jwtService: JwtService,
+  ) {}
 
   async create(userDTO: CreateUserDto) {
     const existingUser = await this.userRepository.findOne({
@@ -33,6 +39,35 @@ export class UsersService {
     await user.hashPassword(userDTO.password);
 
     return this.userRepository.createUser(user);
+  }
+
+  async login(loginDTO: LoginUserDTO) {
+    if (!loginDTO.username && !loginDTO.email) {
+      throw new BadRequestException('Username or Email must be in the request');
+    }
+    const user = await this.findByUsernameOrEmail(
+      loginDTO.username,
+      loginDTO.email,
+    );
+
+    const isPasswordValid = await user.compareHashPass(loginDTO.password);
+
+    if (!isPasswordValid) {
+      throw new ForbiddenException('Password is not valid');
+    }
+
+    user.loginAt = new Date();
+    await this.updateLoginAt(user.id, user);
+
+    return this.generateToken(user);
+  }
+
+  private generateToken(user: User) {
+    const payload = { id: user.id, username: user.username };
+
+    const token = this.jwtService.sign(payload);
+
+    return { token };
   }
 
   findAll() {
