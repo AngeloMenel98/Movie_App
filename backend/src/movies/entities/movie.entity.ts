@@ -15,9 +15,6 @@ export class Movie {
   @Column({ type: 'varchar' })
   coverImage: string;
 
-  @Column({ type: 'float', nullable: true })
-  avgRating: number;
-
   @OneToMany(() => MovUser, (movUser) => movUser.movie)
   reviews: MovUser[];
 }

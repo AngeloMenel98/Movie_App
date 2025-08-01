@@ -23,4 +23,19 @@ export class MovieRepo extends Repository<Movie> {
       return manager.save(movie);
     });
   }
+
+  async findById(id: string) {
+    return this.createQueryBuilder('m')
+      .leftJoinAndSelect('m.reviews', 'reviews')
+      .where('m.id = :id', { id })
+      .getOne();
+  }
+
+  async findAll() {
+    return this.createQueryBuilder('m')
+      .leftJoinAndSelect('m.reviews', 'rev')
+      .leftJoin('rev.user', 'u')
+      .addSelect(['u.id', 'u.username'])
+      .getMany();
+  }
 }

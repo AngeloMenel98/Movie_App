@@ -29,12 +29,18 @@ export class MoviesService {
     return this.movieRepo.createMovie(movie);
   }
 
-  findAll() {
-    return `This action returns all movies`;
+  async findAll() {
+    const movies = await this.movieRepo.findAll();
+
+    if (!movies) {
+      throw new NotFoundException('There is any movies created');
+    }
+
+    return movies;
   }
 
   async findOne(id: string) {
-    const movie = await this.movieRepo.findOneBy({ id });
+    const movie = await this.movieRepo.findById(id);
 
     if (!movie) {
       throw new NotFoundException('Movie not Found');
