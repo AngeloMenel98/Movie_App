@@ -1,16 +1,33 @@
-// app/login/page.tsx
-import React, { useState } from 'react';
+"use client";
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Button from '@/components/buttons/button';
-import Input from '@/components/inputs/input';import { loginUser } from '@/services/user.service';
-;
+import Input from '@/components/inputs/input';
+import { loginUser } from '@/services/user.service';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/user-context';
 
-const LoginPage = () => {
+const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors] = useState({ email: '', password: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shouldRemember, setShouldRemember] = useState(false);
+  const router = useRouter();
+  const { setToken, isInitialized } = useUser();
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+  useEffect(() => {
+    // Solo acceder a localStorage después de la inicialización
+    if (isInitialized && typeof window !== 'undefined') {
+      const savedEmail = localStorage.getItem('rememberedEmail');
+      if (savedEmail) {
+        setFormData(prev => ({ ...prev, email: savedEmail }));
+        setShouldRemember(true);
+      }
+    }
+  }, [isInitialized]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,7 +39,7 @@ const LoginPage = () => {
     let valid = true;
     const newErrors = { email: '', password: '' };
 
-    if (!formData.email) {
+    if (!formData.email.trim()) {
       newErrors.email = 'El correo electrónico es obligatorio';
       valid = false;
     } else if (!emailRegex.test(formData.email)) {
@@ -49,14 +66,27 @@ const LoginPage = () => {
     setIsSubmitting(true);
     try {
       const response = await loginUser(formData.email, formData.password);
-      console.log('Sesión iniciada con:', response);
-      // TODO: Redirigir o guardar el token en cookies/localStorage
-    } catch (err) {
-      console.error('Error de login:', err);
-      setErrors(prev => ({ ...prev, password: 'Credenciales inválidas' }));
+
+      if (response.token) {
+        if (shouldRemember && typeof window !== 'undefined') {
+          localStorage.setItem('rememberedEmail', formData.email);
+        } else if (typeof window !== 'undefined') {
+          localStorage.removeItem('rememberedEmail');
+        }
+
+        setToken(response.token);
+        router.push('/home');
+      } else {
+        throw new Error('Token not received');
+      }
+    } catch (err: any) {
+      console.error('Login error:', err);
+      const errorMessage = err.response?.data?.message || 'Invalid credentials';
+      setErrors(prev => ({ ...prev, password: errorMessage }));
     } finally {
       setIsSubmitting(false);
     }
+  
   };
 
   return (
@@ -84,7 +114,7 @@ const LoginPage = () => {
                 onChange={handleChange}
                 error={!!errors.email}
                 errorMessage={errors.email}
-                aria-invalid={!!errors.email}
+                autoComplete="email"
               />
 
               <Input
@@ -96,7 +126,7 @@ const LoginPage = () => {
                 onChange={handleChange}
                 error={!!errors.password}
                 errorMessage={errors.password}
-                aria-invalid={!!errors.password}
+                autoComplete="current-password"
               />
 
               <div className="flex items-center justify-between">
@@ -105,6 +135,8 @@ const LoginPage = () => {
                     id="remember-me"
                     name="remember-me"
                     type="checkbox"
+                    checked={shouldRemember}
+                    onChange={(e) => setShouldRemember(e.target.checked)}
                     className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                   />
                   <span className="ml-2 text-sm text-gray-700 dark:text-gray-300">Recordar sesión</span>
@@ -124,6 +156,7 @@ const LoginPage = () => {
                 size="lg"
                 fullWidth
                 isLoading={isSubmitting}
+                disabled={isSubmitting}
               >
                 Iniciar sesión
               </Button>
@@ -147,4 +180,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
