@@ -25,6 +25,7 @@ export class CreateUserDto {
 
 export class LoginUserDTO {
   @IsString()
+  @IsOptional()
   @Length(1, 50, { message: 'Username must be between 1 and 50 characters' })
   username: string;
 

@@ -45,6 +45,7 @@ export class UsersService {
     if (!loginDTO.username && !loginDTO.email) {
       throw new BadRequestException('Username or Email must be in the request');
     }
+
     const user = await this.findByUsernameOrEmail(
       loginDTO.username,
       loginDTO.email,
@@ -101,16 +102,10 @@ export class UsersService {
     };
   }
 
-  async findByUsernameOrEmail(username, email) {
-    const user = await this.userRepository.findOne({
-      where: [{ username, email }],
-    });
+  async findByUsernameOrEmail(username: string, email: string) {
+    const user = await this.userRepository.findOneBy([{ username }, { email }]);
 
-    if (!user) {
-      return null;
-    }
-
-    return user;
+    return user || null;
   }
 
   remove(id: number) {
