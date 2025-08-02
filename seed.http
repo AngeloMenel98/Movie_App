@@ -1,0 +1,51 @@
+@baseUrl = http://127.0.0.1:3000
+
+### 1. Crear usuario Angelo
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "username":"Angelo",
+  "password":"test1234",
+  "email":"ange@hot.com"
+}
+
+### 2. Crear usuario Fede
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "username": "Fede",
+  "password": "test1234",
+  "email": "fede@example.com"
+}
+
+### 3. Crear película Inception
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+  "title": "Inception",
+  "synopsis": "A thief who steals corporate secrets through dream-sharing technology is given the task of planting an idea into the mind of a C.E.O.",
+  "coverImage": "https://image.tmdb.org/t/p/original/qmDpIHrmpJINaRKAfWQfftjCdyi.jpg"
+}
+
+### 4. Crear película Shawshank
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+  "title": "The Shawshank Redemption",
+  "synopsis": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+  "coverImage": "https://image.tmdb.org/t/p/original/hBcY0fEy9bnMzko6R8O0P6q1Z2p.jpg"
+}
+
+### 5. Crear película The Dark Knight
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+  "title": "The Dark Knight",
+  "synopsis": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+  "coverImage": "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
+}
