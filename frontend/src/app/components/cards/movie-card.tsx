@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Movie } from "@/types/movies/movie";
 import { useEffect, useState } from "react";
 import MovieModal from "@/home/modals/movie-modal";
+import { FaStar } from "react-icons/fa";
+import Button from "../buttons/button";
 
 interface MovieCardProps {
   movie: Movie;
@@ -14,7 +16,10 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
   useEffect(() => {
     if (movie.reviews && movie.reviews.length > 0) {
-      const total = movie.reviews.reduce((sum, review) => sum + review.rating, 0);
+      const total = movie.reviews.reduce(
+        (sum, review) => sum + review.rating,
+        0
+      );
       const avg = total / movie.reviews.length;
       setAvgRating(avg);
       setTotalReviews(movie.reviews.length);
@@ -23,10 +28,9 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
   return (
     <>
-      {/* Card */}
       <div
         className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 cursor-pointer max-w-md w-full mx-auto"
-        style={{ width: '200px' }}
+        style={{ width: "275px" }}
         onClick={() => setModalOpen(true)}
       >
         {movie.coverImage && (
@@ -47,7 +51,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
           {avgRating > 0 ? (
             <div className="flex items-center">
-              <span className="text-yellow-500 text-sm mr-1">⭐</span>
+              <FaStar className="text-yellow-500 text-sm mr-1" />
               <span className="font-medium text-gray-700 dark:text-gray-300">
                 {avgRating.toFixed(1)}/5
               </span>
@@ -63,7 +67,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         </div>
       </div>
 
-       {modalOpen && (
+      {modalOpen && (
         <MovieModal
           movie={movie}
           avgRating={avgRating}

@@ -1,67 +1,81 @@
-
 "use client";
 
-import React, { useState } from 'react';
-import { useUser } from '@/context/user-context';
-import { usePathname, useRouter } from 'next/navigation';
+import React from "react";
+import { useUser } from "@/context/user-context";
+import { usePathname, useRouter } from "next/navigation";
+import Button from "../buttons/button";
 
-const SideNav = () => {
+import { MdMovie } from "react-icons/md";
+import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { RiLogoutBoxLine } from "react-icons/ri";
+
+export default function SideNav({
+  expanded,
+  onToggle,
+}: {
+  expanded: boolean;
+  onToggle: (val: boolean) => void;
+}) {
   const { user, logout } = useUser();
   const router = useRouter();
   const pathname = usePathname();
-  const [isExpanded, setIsExpanded] = useState(true);
 
-  const navigationItems = [
-    { name: 'Movies', href: '/movies' },
-  ];
+  const navigationItems = [{ name: "Movies", href: "/movies" }];
 
   const handleLogout = () => {
     logout();
-    router.push('/login');
+    router.push("/login");
   };
 
   const toggleSidebar = () => {
-    setIsExpanded(!isExpanded);
+    onToggle(!expanded);
   };
 
   if (!user) return null;
 
   return (
-    <div className={`fixed top-0 left-0 h-screen bg-gradient-to-b from-indigo-900 to-indigo-800 text-white transition-all duration-300 z-50 shadow-xl ${isExpanded ? 'w-64' : 'w-20'}`}>
+    <div
+      className={`fixed top-0 left-0 h-screen bg-gradient-to-b from-indigo-900 to-indigo-800 text-white transition-all duration-300 z-50 shadow-xl ${expanded ? "w-64" : "w-20"}`}
+    >
       <div className="flex flex-col h-full">
-        {/* Logo y botón de expansión */}
         <div className="p-4 border-b border-indigo-700 flex items-center justify-between">
-          {isExpanded ? (
+          {expanded ? (
             <div className="flex items-center space-x-2">
               <div className="bg-indigo-600 rounded-lg p-2">
-                <span className="text-2xl">🎬</span>
+                <MdMovie className="text-2xl" size={20} />
               </div>
               <h1 className="text-xl font-bold">MovieApp</h1>
             </div>
           ) : (
             <div className="bg-indigo-600 rounded-lg p-2 mx-auto">
-              <span className="text-2xl">🎬</span>
+              <MdMovie className="text-2xl" size={20} />
             </div>
           )}
-          <button 
+          <button
             onClick={toggleSidebar}
             className="text-white hover:bg-indigo-700 p-2 rounded-lg transition-colors"
-            aria-label={isExpanded ? "Contraer menú" : "Expandir menú"}
+            aria-label={expanded ? "Contraer menú" : "Expandir menú"}
           >
-            {isExpanded ? '«' : '»'}
+            {expanded ? (
+              <HiChevronLeft size={15} />
+            ) : (
+              <HiChevronRight size={15} />
+            )}
           </button>
         </div>
 
         {/* Información del usuario */}
-        <div className={`p-4 flex items-center ${isExpanded ? 'justify-start space-x-3' : 'justify-center'}`}>
+        <div
+          className={`p-4 flex items-center ${expanded ? "justify-start space-x-3" : "justify-center"}`}
+        >
           <div className="relative">
             <div className="bg-indigo-600 w-12 h-12 rounded-full flex items-center justify-center text-xl">
               {user.username.charAt(0).toUpperCase()}
             </div>
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-indigo-800"></div>
           </div>
-          
-          {isExpanded && (
+
+          {expanded && (
             <div className="overflow-hidden">
               <p className="font-medium truncate">{user.username}</p>
             </div>
@@ -75,12 +89,12 @@ const SideNav = () => {
                 <a
                   href={item.href}
                   className={`flex items-center p-3 rounded-lg transition-colors ${
-                    pathname === item.href 
-                      ? 'bg-indigo-700 text-white font-medium' 
-                      : 'hover:bg-indigo-700/50'
-                  } ${isExpanded ? 'justify-start' : 'justify-center'}`}
+                    pathname === item.href
+                      ? "bg-indigo-700 text-white font-medium"
+                      : "hover:bg-indigo-700/50"
+                  } ${expanded ? "justify-start" : "justify-center"}`}
                 >
-                  {isExpanded && <span className="ml-3">{item.name}</span>}
+                  {expanded && <span className="ml-3">{item.name}</span>}
                 </a>
               </li>
             ))}
@@ -88,26 +102,24 @@ const SideNav = () => {
         </nav>
 
         <div className="p-4 border-t border-indigo-700">
-          {isExpanded ? (
-            <button
+          {expanded ? (
+            <Button
               onClick={handleLogout}
               className="w-full flex items-center justify-center space-x-2 py-2 px-4 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors"
             >
               <span>Cerrar sesión</span>
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               onClick={handleLogout}
               className="w-full flex items-center justify-center py-2 px-4 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors"
               aria-label="Cerrar sesión"
             >
-              <span>🚪</span>
-            </button>
+              <RiLogoutBoxLine className="text-black-600" size={24} />
+            </Button>
           )}
         </div>
       </div>
     </div>
   );
-};
-
-export default SideNav;
+}

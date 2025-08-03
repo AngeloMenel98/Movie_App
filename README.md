@@ -1,12 +1,12 @@
 # Movie App
-Aplicación web para visualizar peliculas.
+MVP for an interview job.
 ## Prerequisites
-- Docker (para la base de datos)
-- Node.js (v18 o superior)
+- Docker (for the DB)
+- Node.js (v18+)
 - npm
 ## Setup
 ### 1. Base de datos con PostgreSQL
-Ejecuta el siguiente comando para crear un contenedor de Docker con PostgreSQL:
+Execute the next command to create a Docker container of PostrgeSQL:
 ```bash
 docker run -d \
   --name movie_db \
@@ -17,56 +17,57 @@ docker run -d \
   -v pgdata:/var/lib/postgresql/data \
   postgres:15.2-alpine3.17
 ```
-Para parar el contenedor, ejecutar:
+To stop the container, execute:
 ```bash
 docker stop movie_db
 ```
 
-Si ya esta creado, ejecutar:
+If it is already created, execute:
 ```bash
 docker start movie_db
 ```
 
-**Nota:** Asegúrate de tener Docker instalado y en ejecución.
-### 2. Configurar el backend
-Navega al directorio del backend:
+**Note:** To start de backend be sure that the container is running.
+### 2. Configure the backend
+Go to the backend directory:
 ```bash
 cd backend
 ```
-Instala las dependencias:
+Install the dependencies:
 ```bash
 npm install
 ```
-### 3. Configurar el frontend
-Navega al directorio del frontend:
+### 3. Configure the frontend
+Go to the frontend directory:
 ```bash
 cd frontend
 ```
-Instala las dependencias:
+Install the dependencies:
 ```bash
 npm install
 ```
-## Ejecutar la aplicación
+## Execute the App
 ### Backend
-Desde el directorio `backend`:
+From the `backend` directory:
 ```bash
 npm run start
 ```
 ### Frontend
-Desde el directorio `frontend`:
+From the `frontend` directory:
 ```bash
 npm run dev
 ```
-## Poblar la base de datos (Seeding)
-Usa el archivo `seed.http` (ubicado en el directorio `backend`) para enviar solicitudes HTTP que poblarán la base de datos. 
+## Populate the Database (Seeding)
+Use the `seed.http` archive (located in the `backend` directory) to send HTTP solitudes that will populate the database with the minimum information. 
 
-**Nota:** Instala en VSCode la extension de REST Client para correr las request.
+**Note:** Instal in VSCode the extension REST Client to run the request.
 
 
-### Pasos:
-1. Abre el archivo `seed.http` en VSCode.
-2. Haz clic en el botón `Send Request` que aparece sobre cada solicitud HTTP en el archivo.
-3. Ejecuta las solicitudes en orden para crear usuarios, películas, etc.
-## Estructura del proyecto
-- `backend/`: Contiene el código del servidor (API REST).
-- `frontend/`: Contiene la aplicación React en Next.js.
+### Steps:
+1. Open`seed.http` in VSCode.
+2. Click in `Send Request`that appear in every HTTP request.
+3. Execute each one to create users and movies.
+
+## Project structure
+- `backend/`: Contains the API REST build with Nest.js.
+- `frontend/`: Contains the React app build with Next.js.
