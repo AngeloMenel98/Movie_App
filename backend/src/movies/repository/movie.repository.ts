@@ -26,7 +26,9 @@ export class MovieRepo extends Repository<Movie> {
 
   async findById(id: string) {
     return this.createQueryBuilder('m')
-      .leftJoinAndSelect('m.reviews', 'reviews')
+      .leftJoinAndSelect('m.reviews', 'rev')
+      .leftJoin('rev.user', 'u')
+      .addSelect(['u.id', 'u.username'])
       .where('m.id = :id', { id })
       .getOne();
   }

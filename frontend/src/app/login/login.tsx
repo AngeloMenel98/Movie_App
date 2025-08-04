@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import Button from "@/components/buttons/button";
 import Input from "@/components/inputs/input";
 import { loginUser } from "@/services/user.service";
@@ -18,7 +17,6 @@ const Login = () => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
-    // Solo acceder a localStorage después de la inicialización
     if (isInitialized && typeof window !== "undefined") {
       const savedEmail = localStorage.getItem("rememberedEmail");
       if (savedEmail) {
@@ -139,15 +137,6 @@ const Login = () => {
                 autoComplete="current-password"
               />
 
-              <div className="flex items-center justify-between">
-                <Link
-                  href="/forgot-password"
-                  className="text-sm font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-                >
-                  ¿Olvidaste tu contraseña?
-                </Link>
-              </div>
-
               <Button
                 type="submit"
                 variant="primary"
@@ -160,18 +149,6 @@ const Login = () => {
               </Button>
             </div>
           </form>
-        </div>
-
-        <div className="mt-8 text-center">
-          <p className="text-gray-600 dark:text-gray-400">
-            ¿No tienes una cuenta?{" "}
-            <Link
-              href="/signup"
-              className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
-            >
-              Regístrate
-            </Link>
-          </p>
         </div>
       </div>
     </div>

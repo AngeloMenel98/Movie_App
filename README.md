@@ -60,13 +60,19 @@ npm run dev
 ## Populate the Database (Seeding)
 Use the `seed.http` archive (located in the `backend` directory) to send HTTP solitudes that will populate the database with the minimum information. 
 
-**Note:** Instal in VSCode the extension REST Client to run the request.
+**Note:** Install in VSCode the extension REST Client to run the request.
 
 
 ### Steps:
 1. Open`seed.http` in VSCode.
 2. Click in `Send Request`that appear in every HTTP request.
 3. Execute each one to create users and movies.
+
+## LogIn User
+To Login, first you need to execute every request in `seed.http`, and the credentials are:
+- user: test@test.com
+- password: test1234
+ 
 
 ## Project structure
 - `backend/`: Contains the API REST build with Nest.js.

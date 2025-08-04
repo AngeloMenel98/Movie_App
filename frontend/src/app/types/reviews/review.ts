@@ -6,5 +6,12 @@ export interface Review {
   comment: string;
   rating: number;
   user: User;
-  movie: Movie
+  movie: Movie;
+}
+
+export interface CreateReview {
+  rating: number;
+  comment: string;
+  movieId: string;
+  userId: string | undefined;
 }

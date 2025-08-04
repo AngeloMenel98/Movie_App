@@ -1,23 +1,13 @@
 @baseUrl = http://127.0.0.1:3000
 
-### 1. Crear usuario Angelo
+### 1. Crear usuario Test
 POST {{baseUrl}}/users
 Content-Type: application/json
 
 {
-  "username":"Angelo",
+  "username":"Test",
   "password":"test1234",
-  "email":"ange@hot.com"
-}
-
-### 2. Crear usuario Fede
-POST {{baseUrl}}/users
-Content-Type: application/json
-
-{
-  "username": "Fede",
-  "password": "test1234",
-  "email": "fede@example.com"
+  "email":"test@test.com"
 }
 
 ### 3. Crear película Inception
@@ -48,4 +38,14 @@ Content-Type: application/json
   "title": "The Dark Knight",
   "synopsis": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
   "coverImage": "https://image.tmdb.org/t/p/original/qJ2tW6WMUDux911r6m7haRef0WH.jpg"
+}
+
+### 6. Crear película "Eternal Horizons"
+POST {{baseUrl}}/movies
+Content-Type: application/json
+
+{
+  "title": "Eternal Horizons",
+  "synopsis": "In a distant future where humanity has spread across the stars, the story follows Captain Aria Solis, a daring explorer on a quest to uncover the secrets of a mysterious energy source that could either save or destroy entire civilizations. As she journeys through uncharted galaxies, Aria faces moral dilemmas, betrayal from unexpected allies, and confronts her own haunted past. The narrative explores themes of hope, sacrifice, and the enduring human spirit in the face of overwhelming odds. With breathtaking cosmic vistas and intricate political intrigue, 'Eternal Horizons' invites viewers on an unforgettable voyage beyond the known universe, challenging the limits of courage and destiny.",
+  "coverImage": "https://image.tmdb.org/t/p/original/8kOtuoZCF7tQOss2kV7V6BkydPy.jpg"
 }

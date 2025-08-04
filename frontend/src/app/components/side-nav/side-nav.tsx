@@ -4,10 +4,12 @@ import React from "react";
 import { useUser } from "@/context/user-context";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "../buttons/button";
-
-import { MdMovie } from "react-icons/md";
-import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
-import { RiLogoutBoxLine } from "react-icons/ri";
+import {
+  HiChevronLeft,
+  HiChevronRight,
+  MdMovie,
+  RiLogoutBoxLine,
+} from "@/icons";
 
 export default function SideNav({
   expanded,

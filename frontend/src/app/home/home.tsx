@@ -4,8 +4,8 @@ import Button from "@/components/buttons/button";
 import MovieCard from "@/components/cards/movie-card";
 import { getAllMovies } from "@/services/movie.service";
 import { Movie } from "@/types/movies/movie";
-import { MdMovie } from "react-icons/md";
 import { useEffect, useState } from "react";
+import { MdMovie } from "react-icons/md";
 
 const Home = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
