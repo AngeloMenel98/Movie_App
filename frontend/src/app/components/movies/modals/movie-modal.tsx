@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CreateReview, Review } from "@/types/reviews/review";
 import { FaStar } from "@/icons";
 import Button from "@/components/buttons/button";
@@ -36,6 +36,20 @@ const AddCommentModal = ({
     onReviewSubmit(newReview);
     onClose();
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
 
   return (
     <div

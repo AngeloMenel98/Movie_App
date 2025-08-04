@@ -1,7 +1,7 @@
 import { CreateReview, Review } from "@/types/reviews/review";
 import { FaStar } from "react-icons/fa";
 import Button from "../buttons/button";
-import { MdAddComment } from "@/icons";
+import { BiMessageAltX, MdAddComment } from "@/icons";
 import { useState } from "react";
 import AddCommentModal from "@/components/movies/modals/movie-modal";
 import { useUser } from "@/context/user-context";
@@ -52,7 +52,11 @@ const MovieComments = ({
 
         <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
           {!reviews || reviews.length === 0 ? (
-            <p className="text-gray-400">There is no comment yet.</p>
+            <div className="flex flex-col items-center justify-center text-center text-gray-500 py-10">
+              <BiMessageAltX size={60} className="mb-2" />
+              <p className="text-lg font-semibold">No comments yet</p>
+              <span className="text-sm">Be the first to leave one!</span>
+            </div>
           ) : (
             <div className="space-y-4">
               {reviews.map((review, idx) => (

@@ -50,7 +50,7 @@ const MovieHeader = ({ movie }: MovieHeaderProps) => {
           </div>
         </div>
 
-        <p className="text-gray-700 text-lg">{movie.synopsis}</p>
+        <p className="text-black-700 text-lg">{movie.synopsis}</p>
       </div>
     </div>
   );

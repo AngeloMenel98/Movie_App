@@ -2,6 +2,7 @@
 
 import Button from "@/components/buttons/button";
 import MovieCard from "@/components/cards/movie-card";
+import Input from "@/components/inputs/input";
 import { getAllMovies } from "@/services/movie.service";
 import { Movie } from "@/types/movies/movie";
 import { useEffect, useState } from "react";
@@ -11,11 +12,16 @@ const Home = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
+
   const fetchMovies = async () => {
     try {
       setIsLoading(true);
       const allMovies = await getAllMovies();
       setMovies(allMovies);
+      setFilteredMovies(allMovies);
       setError(null);
     } catch (err) {
       console.error("Error fetching movies:", err);
@@ -30,6 +36,13 @@ const Home = () => {
   useEffect(() => {
     fetchMovies();
   }, []);
+
+  useEffect(() => {
+    const filtered = movies.filter((movie) =>
+      movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setFilteredMovies(filtered);
+  }, [searchTerm, movies]);
 
   if (isLoading) {
     return (
@@ -59,17 +72,25 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6">
       <div className="max-w-7xl mx-auto">
-        <div className="mb-10 text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-4">
-            Catálogo de Películas
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
-            Explora nuestra colección completa de películas
-          </p>
+        <div className="mb-10">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">
+              Movie Catalog
+            </h1>
+
+            <div className="w-full md:max-w-sm">
+              <Input
+                type="text"
+                placeholder="Buscar por título"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 ">
-          {movies.map((movie) => (
+          {filteredMovies.map((movie) => (
             <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
