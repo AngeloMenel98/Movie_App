@@ -4,8 +4,8 @@ interface PageProps {
   params: { id: string };
 }
 
-export default async function MoviePage({ params }: PageProps) {
-  const { id } = params;
+export default async function MoviePage(props: PageProps) {
+  const { id } = await props.params;
 
   return (
     <div>

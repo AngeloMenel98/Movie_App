@@ -1,22 +1,24 @@
+"use client";
+
 import { CreateReview, Review } from "@/types/reviews/review";
-import { FaStar } from "react-icons/fa";
 import Button from "../../../components/button/button";
-import { BiMessageAltX, MdAddComment } from "@/icons";
+import { MdBlock, MdAddComment, MdStar } from "@/icons";
 import { useState } from "react";
-import AddCommentModal from "@/(pages)/home/movies/add-review";
 import { useUser } from "@/context/user-context";
 import { Movie } from "@/types/movies/movie";
 import { createReview } from "@/lib/services/movie.service";
+import { formatDate } from "@/lib/date";
+import AddReviewModal from "@/(pages)/home/movies/add-review";
 
-interface MovieCommentsProps {
+interface MovieReviewsProps {
   movie: Movie;
   reviews: Review[];
 }
 
-const MovieComments = ({
+const MovieReviews = ({
   movie,
   reviews: initialReviews,
-}: MovieCommentsProps) => {
+}: MovieReviewsProps) => {
   const { user } = useUser();
   const [openModal, setOpenModal] = useState(false);
   const [reviews, setReviews] = useState<Review[]>(initialReviews);
@@ -28,6 +30,7 @@ const MovieComments = ({
       id: crypto.randomUUID(),
       comment: review.comment,
       rating: review.rating,
+      createdAt: review.createdAt,
       user: {
         id: user?.id || "",
         username: user?.username || "",
@@ -53,7 +56,7 @@ const MovieComments = ({
         <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-800">
           {!reviews || reviews.length === 0 ? (
             <div className="flex flex-col items-center justify-center text-center text-gray-500 py-10">
-              <BiMessageAltX size={60} className="mb-2" />
+              <MdBlock size={60} className="mb-2" />
               <p className="text-lg font-semibold">No comments yet</p>
               <span className="text-sm">Be the first to leave one!</span>
             </div>
@@ -65,12 +68,17 @@ const MovieComments = ({
                   className="bg-gray-800 p-4 rounded-lg shadow-sm text-sm"
                 >
                   <div className="flex items-center justify-between mb-1">
-                    <span className="font-semibold">
-                      {review.user.username}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="font-semibold">
+                        {review.user.username}
+                      </span>
+                      <span className="text-gray-400 text-xs">
+                        {formatDate(review.createdAt)}
+                      </span>
+                    </div>
                     <div className="flex items-center gap-1 text-yellow-400">
                       {[...Array(5)].map((_, i) => (
-                        <FaStar
+                        <MdStar
                           key={i}
                           size={14}
                           className={
@@ -90,7 +98,7 @@ const MovieComments = ({
         </div>
       </div>
       {openModal && (
-        <AddCommentModal
+        <AddReviewModal
           isOpen={openModal}
           onClose={() => setOpenModal(false)}
           movieId={movie.id}
@@ -101,4 +109,4 @@ const MovieComments = ({
   );
 };
 
-export default MovieComments;
+export default MovieReviews;

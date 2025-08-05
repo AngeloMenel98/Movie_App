@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { getMovieById } from "@/lib/services/movie.service";
 import { Movie } from "@/types/movies/movie";
 import { MdBlock } from "react-icons/md";
-import MovieComments from "@/(pages)/home/movies/movie-comments";
 import MovieHeader from "@/(pages)/home/movies/movie-header";
+import MovieReviews from "@/(pages)/home/movies/movie-reviews";
 
 interface MovieDetailProps {
   id: string;
@@ -13,7 +13,6 @@ interface MovieDetailProps {
 
 const MovieDetail = ({ id }: MovieDetailProps) => {
   const [movie, setMovie] = useState<Movie | null>(null);
-  const [imageError, setImageError] = useState(false);
 
   useEffect(() => {
     getMovieById(id)
@@ -34,7 +33,7 @@ const MovieDetail = ({ id }: MovieDetailProps) => {
     <div className="max-w-5xl mx-auto p-6 space-y-10">
       <MovieHeader movie={movie} />
 
-      <MovieComments movie={movie} reviews={movie.reviews} />
+      <MovieReviews movie={movie} reviews={movie.reviews} />
     </div>
   );
 };

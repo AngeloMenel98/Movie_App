@@ -28,6 +28,7 @@ export class MovUserController {
       movieId: movUser.movie.id,
       comment: movUser.comment,
       rating: movUser.rating,
+      createdAt: movUser.createdAt,
     };
   }
 

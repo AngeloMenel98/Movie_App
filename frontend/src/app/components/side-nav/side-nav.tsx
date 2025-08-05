@@ -5,10 +5,10 @@ import { useUser } from "@/context/user-context";
 import { usePathname, useRouter } from "next/navigation";
 import Button from "../button/button";
 import {
-  HiChevronLeft,
-  HiChevronRight,
+  MdChevronLeft,
+  MdChevronRight,
   MdMovie,
-  RiLogoutBoxLine,
+  MdLogout,
   MdOutlineMovie,
 } from "@/icons";
 
@@ -68,9 +68,9 @@ export default function SideNav({
             aria-label={expanded ? "Contraer menú" : "Expandir menú"}
           >
             {expanded ? (
-              <HiChevronLeft size={15} />
+              <MdChevronLeft size={15} />
             ) : (
-              <HiChevronRight size={15} />
+              <MdChevronRight size={15} />
             )}
           </button>
         </div>
@@ -129,7 +129,7 @@ export default function SideNav({
               className="w-full flex items-center justify-center py-2 px-4 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors"
               aria-label="Sign Out"
             >
-              <RiLogoutBoxLine className="text-black-600" size={24} />
+              <MdLogout className="text-black-600" size={24} />
             </Button>
           )}
         </div>

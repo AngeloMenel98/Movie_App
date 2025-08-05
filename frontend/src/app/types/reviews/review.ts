@@ -5,6 +5,7 @@ export interface Review {
   id: string;
   comment: string;
   rating: number;
+  createdAt: Date;
   user: User;
   movie: Movie;
 }

@@ -44,7 +44,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       } catch (error) {
         console.error("Error initializing auth:", error);
       } finally {
-        setIsInitialized(true); // Marcar que la inicialización ha terminado
+        setIsInitialized(true);
       }
     };
 

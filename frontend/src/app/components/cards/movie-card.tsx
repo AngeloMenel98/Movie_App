@@ -3,7 +3,7 @@ import { Movie } from "@/types/movies/movie";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { FaStar, LuImageOff } from "@/icons";
+import { MdStar, MdHideImage } from "@/icons";
 
 interface MovieCardProps {
   movie: Movie;
@@ -38,7 +38,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
         <div className="relative w-full h-56">
           {imageError ? (
             <div className="flex items-center justify-center w-full h-full bg-gray-800 rounded">
-              <LuImageOff className="text-5xl text-gray-500" />
+              <MdHideImage className="text-5xl text-gray-500" />
             </div>
           ) : (
             <Image
@@ -59,7 +59,7 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
         {avgRating > 0 ? (
           <div className="flex items-center">
-            <FaStar className="text-yellow-500 text-sm mr-1" />
+            <MdStar className="text-yellow-500 text-sm mr-1" />
             <span className="font-medium text-gray-700 dark:text-gray-300">
               {avgRating.toFixed(2)}/5.0
             </span>

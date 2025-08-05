@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { LuImageOff } from "react-icons/lu";
+import { MdHideImage } from "@/icons";
 import { Movie } from "@/types/movies/movie";
-import { FaStar } from "@/icons";
+import { MdStar } from "@/icons";
 
 interface MovieHeaderProps {
   movie: Movie;
@@ -26,7 +26,7 @@ const MovieHeader = ({ movie }: MovieHeaderProps) => {
       <div className="w-full md:w-1/3">
         {imageError ? (
           <div className="flex items-center justify-center w-full h-full bg-gray-800 rounded aspect-[2/3]">
-            <LuImageOff className="text-5xl text-gray-500" />
+            <MdHideImage className="text-5xl text-gray-500" />
           </div>
         ) : (
           <Image
@@ -46,7 +46,7 @@ const MovieHeader = ({ movie }: MovieHeaderProps) => {
 
           <div className="flex items-center gap-1 bg-yellow-400 text-black px-3 py-1 rounded-full font-semibold select-none">
             <span>{avgFormatted}</span>
-            <FaStar className="h-5 w-5 fill-current" />
+            <MdStar className="h-5 w-5 fill-current" />
           </div>
         </div>
 
