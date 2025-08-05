@@ -30,6 +30,7 @@ export class MovieRepo extends Repository<Movie> {
       .leftJoin('rev.user', 'u')
       .addSelect(['u.id', 'u.username'])
       .where('m.id = :id', { id })
+      .orderBy('rev.createdAt', 'DESC')
       .getOne();
   }
 

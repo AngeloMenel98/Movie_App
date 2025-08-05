@@ -2,6 +2,7 @@ import { Movie } from 'src/movies/entities/movie.entity';
 import { User } from 'src/users/entities/user.entity';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -18,6 +19,9 @@ export class MovUser {
 
   @Column({ type: 'integer' })
   rating: number;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  createdAt: Date;
 
   @ManyToOne(() => Movie, (movie) => movie.reviews, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'movieId' })

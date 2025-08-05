@@ -76,7 +76,6 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     setTokenState(null);
     if (typeof window !== "undefined") {
       localStorage.removeItem("token");
-      localStorage.removeItem("rememberedEmail");
     }
   };
 

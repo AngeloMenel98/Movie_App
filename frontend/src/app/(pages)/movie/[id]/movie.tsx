@@ -1,13 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getMovieById } from "@/services/movie.service";
+import { getMovieById } from "@/lib/services/movie.service";
 import { Movie } from "@/types/movies/movie";
-import { LuImageOff } from "react-icons/lu";
 import { MdBlock } from "react-icons/md";
-import Image from "next/image";
-import MovieComments from "@/components/movies/movie-comments";
-import MovieHeader from "@/components/movies/movie-header";
+import MovieComments from "@/(pages)/home/movies/movie-comments";
+import MovieHeader from "@/(pages)/home/movies/movie-header";
 
 interface MovieDetailProps {
   id: string;

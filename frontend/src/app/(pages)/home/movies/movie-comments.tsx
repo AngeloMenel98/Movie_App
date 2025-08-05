@@ -1,12 +1,12 @@
 import { CreateReview, Review } from "@/types/reviews/review";
 import { FaStar } from "react-icons/fa";
-import Button from "../buttons/button";
+import Button from "../../../components/button/button";
 import { BiMessageAltX, MdAddComment } from "@/icons";
 import { useState } from "react";
-import AddCommentModal from "@/components/movies/modals/movie-modal";
+import AddCommentModal from "@/(pages)/home/movies/add-review";
 import { useUser } from "@/context/user-context";
 import { Movie } from "@/types/movies/movie";
-import { createReview } from "@/services/movie.service";
+import { createReview } from "@/lib/services/movie.service";
 
 interface MovieCommentsProps {
   movie: Movie;
@@ -91,6 +91,7 @@ const MovieComments = ({
       </div>
       {openModal && (
         <AddCommentModal
+          isOpen={openModal}
           onClose={() => setOpenModal(false)}
           movieId={movie.id}
           onReviewSubmit={onReviewSubmit}

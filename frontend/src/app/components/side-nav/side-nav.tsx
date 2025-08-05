@@ -3,7 +3,7 @@
 import React from "react";
 import { useUser } from "@/context/user-context";
 import { usePathname, useRouter } from "next/navigation";
-import Button from "../buttons/button";
+import Button from "../button/button";
 import {
   HiChevronLeft,
   HiChevronRight,
@@ -121,13 +121,13 @@ export default function SideNav({
               onClick={handleLogout}
               className="w-full flex items-center justify-center space-x-2 py-2 px-4 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors"
             >
-              <span>Cerrar sesión</span>
+              <span>Sign Out</span>
             </Button>
           ) : (
             <Button
               onClick={handleLogout}
               className="w-full flex items-center justify-center py-2 px-4 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition-colors"
-              aria-label="Cerrar sesión"
+              aria-label="Sign Out"
             >
               <RiLogoutBoxLine className="text-black-600" size={24} />
             </Button>

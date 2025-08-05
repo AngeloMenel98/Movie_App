@@ -4,7 +4,7 @@ interface PageProps {
   params: { id: string };
 }
 
-export default function MoviePage({ params }: PageProps) {
+export default async function MoviePage({ params }: PageProps) {
   const { id } = params;
 
   return (

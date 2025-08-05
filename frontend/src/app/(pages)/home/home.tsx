@@ -1,9 +1,9 @@
 "use client";
 
-import Button from "@/components/buttons/button";
+import Button from "@/components/button/button";
 import MovieCard from "@/components/cards/movie-card";
 import Input from "@/components/inputs/input";
-import { getAllMovies } from "@/services/movie.service";
+import { getAllMovies } from "@/lib/services/movie.service";
 import { Movie } from "@/types/movies/movie";
 import { useEffect, useState } from "react";
 import { MdMovie } from "react-icons/md";

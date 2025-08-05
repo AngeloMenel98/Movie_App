@@ -1,8 +1,8 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import Button from "@/components/buttons/button";
+import Button from "@/components/button/button";
 import Input from "@/components/inputs/input";
-import { loginUser } from "@/services/user.service";
+import { loginUser } from "@/lib/services/user.service";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/context/user-context";
 

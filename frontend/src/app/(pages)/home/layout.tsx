@@ -1,9 +1,9 @@
 "use client";
 
 import { useUser } from "@/context/user-context";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import SideNav from "@/components/side-nav/side-nav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AuthenticatedLayout({
   children,
@@ -12,10 +12,13 @@ export default function AuthenticatedLayout({
 }>) {
   const { user, isInitialized } = useUser();
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const router = useRouter();
 
-  if (isInitialized && !user) {
-    redirect("/login");
-  }
+  useEffect(() => {
+    if (isInitialized && !user) {
+      router.push("/login");
+    }
+  }, [isInitialized, user, router]);
 
   return (
     <div className="flex min-h-screen">
